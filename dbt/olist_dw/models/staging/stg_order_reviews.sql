@@ -1,0 +1,1 @@
+select * from {{ source('airbyte_raw_ecommerce', 'raw_order_reviews') }}
