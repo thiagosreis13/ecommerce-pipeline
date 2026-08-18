@@ -1,0 +1,14 @@
+# Dados brutos (não versionar arquivos pesados)
+data/raw/*.csv
+
+# dbt (quando configurarmos, mais pra frente)
+dbt/**/target/
+dbt/**/dbt_packages/
+dbt/**/logs/
+
+# Ambiente Python geral, caso crie algum na raiz
+.venv/
+__pycache__/
+
+# Arquivos de sistema
+.DS_Store
