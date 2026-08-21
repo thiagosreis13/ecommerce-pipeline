@@ -1,6 +1,8 @@
 from airflow import DAG
 from datetime import datetime
 from airflow.providers.standard.operators.python import PythonOperator
+from airflow.providers.airbyte.operators.airbyte import AirbyteTriggerSyncOperator
+
 
 from olist.pipeline import extract_load_datasets
 from olist.load import DATASETS
@@ -19,6 +21,7 @@ dag = DAG(
 
 )
 
+
 tasks = []
 for nome_arquivo, tabela_destino in DATASETS.items():
     task_id_gerado = "extract_load_" + tabela_destino
@@ -30,7 +33,16 @@ for nome_arquivo, tabela_destino in DATASETS.items():
     ))
 
 
+airbyte_task = AirbyteTriggerSyncOperator(
+    task_id="airbyte_sync_ecommerce",
+    airbyte_conn_id="airbyte_default",
+    connection_id="421dda8a-174b-4507-9d21-d29a2d99dc77",
+    asynchronous=False,
+    dag=dag
+)
 
+
+tasks >> airbyte_task
 
 """
 extract_task = PythonOperator(
