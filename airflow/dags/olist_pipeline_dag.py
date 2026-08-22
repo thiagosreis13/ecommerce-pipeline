@@ -1,6 +1,7 @@
 from airflow import DAG
 from datetime import datetime
 from airflow.providers.standard.operators.python import PythonOperator
+from airflow.providers.standard.operators.bash import BashOperator
 from airflow.providers.airbyte.operators.airbyte import AirbyteTriggerSyncOperator
 
 
@@ -42,7 +43,14 @@ airbyte_task = AirbyteTriggerSyncOperator(
 )
 
 
-tasks >> airbyte_task
+dbt_task = BashOperator(
+    task_id="dbt_transformacao",
+    bash_command="cd /usr/local/airflow/dbt && dbt run --target docker",
+    dag=dag
+)
+
+
+tasks >> airbyte_task >> dbt_task
 
 """
 extract_task = PythonOperator(

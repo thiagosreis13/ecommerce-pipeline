@@ -1,0 +1,6 @@
+version: "3"
+services:
+  scheduler:
+    volumes:
+      - "C:/Users/THIAGO/.dbt/profiles.yml:/home/astro/.dbt/profiles.yml"
+      - "C:/Users/THIAGO/Desktop/EngDados/ecommerce-pipeline/dbt/olist_dw:/usr/local/airflow/dbt"
