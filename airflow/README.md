@@ -43,3 +43,18 @@ Contact
 =======
 
 The Astronomer CLI is maintained with love by the Astronomer team. To report a bug or suggest a change, reach out to our support.
+
+
+
+
+
+## Configuração local (dbt + Airflow)
+
+Antes de rodar `astro dev restart`, defina as seguintes variáveis de ambiente na sessão do PowerShell, para que o `docker-compose.override.yml` consiga montar os volumes do projeto dbt corretamente dentro do container:
+
+```powershell
+$env:DBT_PROJECT_PATH="C:/caminho/para/seu/projeto/dbt/olist_dw"
+$env:DBT_PROFILES_PATH="C:/caminho/para/seu/.dbt/profiles.yml"
+```
+
+Substitua os caminhos pelos valores correspondentes na sua máquina.
